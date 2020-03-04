@@ -13,11 +13,7 @@ public class TennisGame1 implements TennisGame {
     }
 
     public void wonPoint(String playerName) {
-        if (isPlayer1WonPoint(playerName)) {
-            this.player1.wonPoint();
-        } else {
-            this.player2.wonPoint();
-        }
+        findWinner(playerName).wonPoint();
     }
 
     public String getScore() {
@@ -72,6 +68,10 @@ public class TennisGame1 implements TennisGame {
 
     private boolean isStandOff() {
         return this.player1.getScore() == this.player2.getScore();
+    }
+
+    private Player findWinner(String playerName) {
+        return isPlayer1WonPoint(playerName) ? player1 : player2;
     }
 
     private boolean isPlayer1WonPoint(String playerName) {
