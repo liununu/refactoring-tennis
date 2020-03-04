@@ -17,69 +17,7 @@ public class TennisGame1 implements TennisGame {
     }
 
     public String getScore() {
-        String score = "";
-        if (isStandOff()) {
-            switch (this.player1.getScore()) {
-                case 0:
-                    return "Love-All";
-                case 1:
-                    return "Fifteen-All";
-                case 2:
-                    return "Thirty-All";
-                default:
-                    return "Deuce";
-            }
-        }
-
-        if (this.player1.getScore() >= 4 || this.player2.getScore() >= 4) {
-            int minusResult = this.player1.getScore() - this.player2.getScore();
-            if (minusResult == 1) {
-                return "Advantage " + this.player1.getName();
-            } else if (minusResult == -1) {
-                return "Advantage " + this.player2.getName();
-            } else if (minusResult >= 2) {
-                return "Win for " + this.player1.getName();
-            } else {
-                return "Win for " + this.player2.getName();
-            }
-        }
-
-        switch (this.player1.getScore()) {
-            case 0:
-                score += "Love";
-                break;
-            case 1:
-                score += "Fifteen";
-                break;
-            case 2:
-                score += "Thirty";
-                break;
-            case 3:
-                score += "Forty";
-                break;
-        }
-
-        score += "-";
-
-        switch (this.player2.getScore()) {
-            case 0:
-                score += "Love";
-                break;
-            case 1:
-                score += "Fifteen";
-                break;
-            case 2:
-                score += "Thirty";
-                break;
-            case 3:
-                score += "Forty";
-                break;
-        }
-        return score;
-    }
-
-    private boolean isStandOff() {
-        return this.player1.getScore() == this.player2.getScore();
+        return new Score(player1, player2).getScore();
     }
 
     private Player findWinner(String playerName) {
