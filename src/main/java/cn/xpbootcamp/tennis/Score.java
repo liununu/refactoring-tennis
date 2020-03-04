@@ -1,12 +1,26 @@
 package cn.xpbootcamp.tennis;
 
+import java.util.Map;
+
+import static com.google.common.collect.ImmutableMap.of;
+
 public class Score {
+
+    private static final String SCORE_SPLITTER = "-";
+    private static final String DEUCE = "Deuce";
+    private static final String ALL = "All";
+
     private final Player player1;
     private final Player player2;
+    private final Map<Integer, String> scoreMap;
 
     public Score(Player player1, Player player2) {
         this.player1 = player1;
         this.player2 = player2;
+        scoreMap = of(0, "Love",
+                1, "Fifteen",
+                2, "Thirty",
+                3, "Forty");
     }
 
     public String getScore() {
@@ -26,16 +40,12 @@ public class Score {
     }
 
     private String getScoreWhenStandOff() {
-        switch (this.player1.getScore()) {
-            case 0:
-                return "Love-All";
-            case 1:
-                return "Fifteen-All";
-            case 2:
-                return "Thirty-All";
-            default:
-                return "Deuce";
+        if (this.player1.getScore() > 2) {
+            return DEUCE;
         }
+        return scoreMap.get(this.player1.getScore()) +
+                SCORE_SPLITTER +
+                ALL;
     }
 
     private boolean isAnyPlayerScoreOverThreePoint() {
@@ -56,39 +66,9 @@ public class Score {
     }
 
     private String getNormalScore() {
-        String score = "";
-        switch (this.player1.getScore()) {
-            case 0:
-                score += "Love";
-                break;
-            case 1:
-                score += "Fifteen";
-                break;
-            case 2:
-                score += "Thirty";
-                break;
-            case 3:
-                score += "Forty";
-                break;
-        }
-
-        score += "-";
-
-        switch (this.player2.getScore()) {
-            case 0:
-                score += "Love";
-                break;
-            case 1:
-                score += "Fifteen";
-                break;
-            case 2:
-                score += "Thirty";
-                break;
-            case 3:
-                score += "Forty";
-                break;
-        }
-        return score;
+        return scoreMap.get(this.player1.getScore()) +
+                SCORE_SPLITTER +
+                scoreMap.get(this.player2.getScore());
     }
 
 }
