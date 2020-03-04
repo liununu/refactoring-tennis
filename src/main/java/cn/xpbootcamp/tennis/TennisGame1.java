@@ -13,10 +13,9 @@ public class TennisGame1 implements TennisGame {
     }
 
     public void wonPoint(String playerName) {
-        if (Objects.equals(playerName, this.player1.getName())) {
+        if (isPlayer1WonPoint(playerName)) {
             this.player1.wonPoint();
-        }
-        if (Objects.equals(playerName, this.player2.getName())) {
+        } else {
             this.player2.wonPoint();
         }
     }
@@ -75,5 +74,9 @@ public class TennisGame1 implements TennisGame {
             }
         }
         return score;
+    }
+
+    private boolean isPlayer1WonPoint(String playerName) {
+        return Objects.equals(playerName, this.player1.getName());
     }
 }
