@@ -11,31 +11,51 @@ public class Score {
 
     public String getScore() {
         if (isStandOff()) {
-            switch (this.player1.getScore()) {
-                case 0:
-                    return "Love-All";
-                case 1:
-                    return "Fifteen-All";
-                case 2:
-                    return "Thirty-All";
-                default:
-                    return "Deuce";
-            }
+            return getScoreWhenStandOff();
         }
 
-        if (this.player1.getScore() >= 4 || this.player2.getScore() >= 4) {
-            int minusResult = this.player1.getScore() - this.player2.getScore();
-            if (minusResult == 1) {
-                return "Advantage " + this.player1.getName();
-            } else if (minusResult == -1) {
-                return "Advantage " + this.player2.getName();
-            } else if (minusResult >= 2) {
-                return "Win for " + this.player1.getName();
-            } else {
-                return "Win for " + this.player2.getName();
-            }
+        if (isAnyPlayerScoreOverThreePoint()) {
+            return getScoreWhenScoreOverThreePoint();
         }
 
+        return getNormalScore();
+    }
+
+    private boolean isStandOff() {
+        return this.player1.getScore() == this.player2.getScore();
+    }
+
+    private String getScoreWhenStandOff() {
+        switch (this.player1.getScore()) {
+            case 0:
+                return "Love-All";
+            case 1:
+                return "Fifteen-All";
+            case 2:
+                return "Thirty-All";
+            default:
+                return "Deuce";
+        }
+    }
+
+    private boolean isAnyPlayerScoreOverThreePoint() {
+        return this.player1.getScore() >= 4 || this.player2.getScore() >= 4;
+    }
+
+    private String getScoreWhenScoreOverThreePoint() {
+        int minusResult = this.player1.getScore() - this.player2.getScore();
+        if (minusResult == 1) {
+            return "Advantage " + this.player1.getName();
+        } else if (minusResult == -1) {
+            return "Advantage " + this.player2.getName();
+        } else if (minusResult >= 2) {
+            return "Win for " + this.player1.getName();
+        } else {
+            return "Win for " + this.player2.getName();
+        }
+    }
+
+    private String getNormalScore() {
         String score = "";
         switch (this.player1.getScore()) {
             case 0:
@@ -71,7 +91,4 @@ public class Score {
         return score;
     }
 
-    private boolean isStandOff() {
-        return this.player1.getScore() == this.player2.getScore();
-    }
 }
