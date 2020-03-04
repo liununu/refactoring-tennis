@@ -44,27 +44,36 @@ public class TennisGame1 implements TennisGame {
             }
         }
 
-        for (int i = 1; i < 3; i++) {
-            int tempScore = 0;
-            if (i == 1) tempScore = this.player1.getScore();
-            else {
-                score += "-";
-                tempScore = this.player2.getScore();
-            }
-            switch (tempScore) {
-                case 0:
-                    score += "Love";
-                    break;
-                case 1:
-                    score += "Fifteen";
-                    break;
-                case 2:
-                    score += "Thirty";
-                    break;
-                case 3:
-                    score += "Forty";
-                    break;
-            }
+        switch (this.player1.getScore()) {
+            case 0:
+                score += "Love";
+                break;
+            case 1:
+                score += "Fifteen";
+                break;
+            case 2:
+                score += "Thirty";
+                break;
+            case 3:
+                score += "Forty";
+                break;
+        }
+
+        score += "-";
+
+        switch (this.player2.getScore()) {
+            case 0:
+                score += "Love";
+                break;
+            case 1:
+                score += "Fifteen";
+                break;
+            case 2:
+                score += "Thirty";
+                break;
+            case 3:
+                score += "Forty";
+                break;
         }
         return score;
     }
