@@ -9,6 +9,8 @@ public class Score {
     private static final String SCORE_SPLITTER = "-";
     private static final String DEUCE = "Deuce";
     private static final String ALL = "All";
+    private static final String ADVANTAGE = "Advantage ";
+    private static final String WIN_FOR = "Win for ";
 
     private final Player player1;
     private final Player player2;
@@ -53,16 +55,21 @@ public class Score {
     }
 
     private String getScoreWhenScoreOverThreePoint() {
-        int minusResult = this.player1.getScore() - this.player2.getScore();
-        if (minusResult == 1) {
-            return "Advantage " + this.player1.getName();
-        } else if (minusResult == -1) {
-            return "Advantage " + this.player2.getName();
-        } else if (minusResult >= 2) {
-            return "Win for " + this.player1.getName();
-        } else {
-            return "Win for " + this.player2.getName();
-        }
+        int absDifference = Math.abs(this.player1.getScore() - this.player2.getScore());
+        String playerNameWithMoreScore = this.player1.getScore() > this.player2.getScore()
+                ? this.player1.getName()
+                : this.player2.getName();
+        return absDifference == 1
+                ? getAdvantageScore(playerNameWithMoreScore)
+                : getWinForScore(playerNameWithMoreScore);
+    }
+
+    private String getAdvantageScore(String playerName) {
+        return ADVANTAGE + playerName;
+    }
+
+    private String getWinForScore(String playerName) {
+        return WIN_FOR + playerName;
     }
 
     private String getNormalScore() {
