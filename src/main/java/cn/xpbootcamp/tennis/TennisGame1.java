@@ -22,27 +22,20 @@ public class TennisGame1 implements TennisGame {
 
     public String getScore() {
         String score = "";
-        int tempScore=0;
-        if (this.player1.getScore()==this.player2.getScore())
-        {
-            switch (this.player1.getScore())
-            {
+        if (isStandOff()) {
+            switch (this.player1.getScore()) {
                 case 0:
-                        score = "Love-All";
-                    break;
+                    return "Love-All";
                 case 1:
-                        score = "Fifteen-All";
-                    break;
+                    return "Fifteen-All";
                 case 2:
-                        score = "Thirty-All";
-                    break;
+                    return "Thirty-All";
                 default:
-                        score = "Deuce";
-                    break;
-
+                    return "Deuce";
             }
         }
-        else if (this.player1.getScore()>=4 || this.player2.getScore()>=4)
+
+        if (this.player1.getScore()>=4 || this.player2.getScore()>=4)
         {
             int minusResult = this.player1.getScore()-this.player2.getScore();
             if (minusResult==1) score ="Advantage player1";
@@ -54,6 +47,7 @@ public class TennisGame1 implements TennisGame {
         {
             for (int i=1; i<3; i++)
             {
+                int tempScore=0;
                 if (i==1) tempScore = this.player1.getScore();
                 else { score+="-"; tempScore = this.player2.getScore();}
                 switch(tempScore)
@@ -74,6 +68,10 @@ public class TennisGame1 implements TennisGame {
             }
         }
         return score;
+    }
+
+    private boolean isStandOff() {
+        return this.player1.getScore() == this.player2.getScore();
     }
 
     private boolean isPlayer1WonPoint(String playerName) {
