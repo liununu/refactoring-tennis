@@ -34,13 +34,13 @@ public class TennisGame1 implements TennisGame {
         if (this.player1.getScore() >= 4 || this.player2.getScore() >= 4) {
             int minusResult = this.player1.getScore() - this.player2.getScore();
             if (minusResult == 1) {
-                return  "Advantage player1";
+                return "Advantage " + this.player1.getName();
             } else if (minusResult == -1) {
-                return  "Advantage player2";
+                return "Advantage " + this.player2.getName();
             } else if (minusResult >= 2) {
-                return  "Win for player1";
+                return "Win for " + this.player1.getName();
             } else {
-                return  "Win for player2";
+                return "Win for " + this.player2.getName();
             }
         }
 
